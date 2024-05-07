@@ -6,7 +6,7 @@ namespace App\Extend\Bentools;
 use \Countable;
 use \Traversable;
 use \IteratorAggregate;
-use App\Extend\Bentools\CartesianProduct;
+use \App\Extend\Bentools\CartesianProduct;
 
 /**
  * @property $min
