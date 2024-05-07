@@ -21,6 +21,9 @@
                         <li>
                             <a href="{{ route('codes.index') }}">@lang('navigation.code_database')</a>
                         </li>
+                        <li>
+                            <a href="{{ route('jobs.index') }}">@lang('navigation.jobs')</a>
+                        </li>
                     </ul>
                 </aside>
             </div>

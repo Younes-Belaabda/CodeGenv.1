@@ -18,16 +18,14 @@ class CodeController extends Controller
         return view('codes.create');
     }
     public function store(Request $request){
-        $range = str_split($request->range);
 
-        $data = [
-            'length' => $request->length,
-            'prefix' => $request->prefix ?? '',
-            'suffix' => $request->suffix ?? '',
-            'range'  => $range ?? '',
-        ];
+        $request->validate([
+            'length' => 'required'
+        ]);
 
-        GenerateHashCodes::dispatch($data);
+        $length = $request->length;
+
+        GenerateHashCodes::dispatch($length);
 
         return back();
     }

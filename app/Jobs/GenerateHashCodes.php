@@ -1,7 +1,6 @@
 <?php
 namespace App\Jobs;
 
-use \App\Classes\HashCode;
 use App\Models\Code;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -13,14 +12,14 @@ class GenerateHashCodes implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $hashcode;
+    private $length;
 
     /**
      * Create a new job instance.
      */
-    public function __construct($data)
+    public function __construct($length)
     {
-        $this->hashcode = new HashCode($data['length'], $data['prefix'] , $data['suffix'], $data['range']);
+        $this->length = $length;
     }
 
     /**
@@ -28,16 +27,14 @@ class GenerateHashCodes implements ShouldQueue
      */
     public function handle(): void
     {
-        $this->hashcode->generate();
-
-        foreach($this->hashcode->hashcodes as $code){
+        for ($i=0; $i < 1000; $i++) {
             try{
                 Code::create([
-                    'hash' => $code,
+                    'hash' => substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890') , 0 , $this->length),
                     'status' => false
                 ]);
             }catch(\Exception $ex){
-                info($code);
+                info('Error Code Duplicated !');
             }
         }
     }
