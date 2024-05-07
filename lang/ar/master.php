@@ -8,4 +8,6 @@
         'hashcode_suffix' => 'الكلمة بعد الكود',
         'hashcode_length' => 'طول الكود',
         'hashcode_range' => 'أحرف الكود',
+        'copy' => 'نسخ',
+        'search' => 'بحث',
     ];
