@@ -18,11 +18,11 @@
                         <input type="text" name="length" placeholder="@lang('master.hashcode_length')">
                     </label>
                 </div>
-                <div class="medium-12 cell">
+                {{-- <div class="medium-12 cell">
                     <label>@lang('master.hashcode_range')
                         <input type="text" name="range" placeholder="@lang('master.hashcode_range')">
                     </label>
-                </div>
+                </div> --}}
             </div>
             <button class="button">@lang('master.submit')</button>
         </div>

@@ -25,11 +25,13 @@ class CodeController extends Controller
         ]);
 
         $length = $request->length;
+        $prefix = $request->prefix;
+        $suffix = $request->suffix;
 
         for ($i=0; $i < 1000; $i++) {
             try{
                 Code::create([
-                    'hash' => substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890') , 0 , $length),
+                    'hash' => $prefix . substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890') , 0 , $length) . $suffix,
                     'status' => false
                 ]);
             }catch(\Exception $ex){
