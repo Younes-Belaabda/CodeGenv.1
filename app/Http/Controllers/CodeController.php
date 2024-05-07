@@ -5,6 +5,7 @@ use App\Models\Code;
 use App\Classes\HashCode;
 use Illuminate\Http\Request;
 use App\Jobs\GenerateHashCodes;
+use Illuminate\Support\Facades\Artisan;
 
 class CodeController extends Controller
 {
@@ -25,7 +26,23 @@ class CodeController extends Controller
 
         $length = $request->length;
 
-        GenerateHashCodes::dispatch($length);
+        for ($i=0; $i < 1000; $i++) {
+            try{
+                Code::create([
+                    'hash' => substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890') , 0 , $length),
+                    'status' => false
+                ]);
+            }catch(\Exception $ex){
+                info('Error Code Duplicated !');
+            }
+        }
+
+        // GenerateHashCodes::dispatch($length);
+
+        // dispatch(new GenerateHashCodes($length));
+        // Artisan::command('queue:work', function () {
+        //     info('Queue Work Command !');
+        // });
 
         return back();
     }
