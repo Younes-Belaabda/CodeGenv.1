@@ -16,10 +16,10 @@
                 <aside>
                     <ul>
                         <li>
-                            <a href="{{ route('codes.create') }}">Generate Codes</a>
+                            <a href="{{ route('codes.create') }}">@lang('navigation.generate_codes')</a>
                         </li>
                         <li>
-                            <a href="{{ route('codes.index') }}">Codes Database</a>
+                            <a href="{{ route('codes.index') }}">@lang('navigation.code_database')</a>
                         </li>
                     </ul>
                 </aside>
