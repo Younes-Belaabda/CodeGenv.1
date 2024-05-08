@@ -57,6 +57,14 @@
                             <p class="callout alert">{{ $message }}</p>
                         @enderror
                     </div>
+                    <div class="medium-12 cell">
+                        <label>@lang('master.hashcode_codes_numbers')
+                            <input type="text" name="codes_number" placeholder="@lang('master.hashcode_codes_numbers')">
+                        </label>
+                        @error('codes_number')
+                            <p class="callout alert">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
                 <button class="button">@lang('master.submit')</button>
             </div>

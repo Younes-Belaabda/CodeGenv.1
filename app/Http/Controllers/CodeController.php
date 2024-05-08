@@ -37,6 +37,7 @@ class CodeController extends Controller
             'smallcase' => 'required',
             'uppercase' => 'required',
             'numbers' => 'required',
+            'codes_number' => 'required'
         ]);
 
         $group_name = $request->group;
@@ -45,6 +46,7 @@ class CodeController extends Controller
         $smallcase_count = $request->smallcase;
         $uppercase_count = $request->uppercase;
         $number_count    = $request->numbers;
+        $codes_number    = $request->codes_number;
 
         $group = Group::create([
             'name' => $group_name
@@ -55,7 +57,7 @@ class CodeController extends Controller
         if(env('JOB_ACTIVATED') == true){
             GenerateHashCodes::dispatch($hashcode);
         }else{
-            for ($i=0; $i < 1000; $i++) {
+            for ($i=0; $i < $codes_number; $i++) {
                 try{
                     Code::create([
                         'hash' => $hashcode->random(),

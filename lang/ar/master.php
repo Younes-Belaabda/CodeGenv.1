@@ -17,5 +17,6 @@
         'show' => 'عرض',
         'search' => 'بحث',
         'open-menu' => 'الشريط الجانبي',
-        
+        'hashcode_codes_numbers' => 'عدد الأكواد'
+
     ];
