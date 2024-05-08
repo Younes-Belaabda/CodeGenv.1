@@ -33,7 +33,7 @@ class CodeController extends Controller
     public function store(Request $request){
 
         $request->validate([
-            'group' => 'required',
+            'group' => 'required|unique:groups,name',
             'smallcase' => 'required',
             'uppercase' => 'required',
             'numbers' => 'required',
