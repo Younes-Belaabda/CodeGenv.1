@@ -20,7 +20,7 @@ class CodeController extends Controller
     }
 
     public function groupes(Request $request){
-        $groupes = Group::paginate(10);
+        $groupes = Group::orderBy('status')->paginate(10);
         if($request->has('q'))
             $groupes = Group::where('name' , 'like' , "%" . $request->get('q') ."%")->paginate(50);
         return view('codes.groupes' , ['groupes' => $groupes]);
@@ -85,5 +85,11 @@ class CodeController extends Controller
         Storage::put(time() . '.txt', $text);
 
         return Storage::download($filename);
+    }
+
+    public function status(Group $group){
+        $group->status = true;
+        $group->save();
+        return back();
     }
 }

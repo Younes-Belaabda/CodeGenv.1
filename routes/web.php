@@ -39,6 +39,7 @@ Route::prefix('codes')->as('codes.')->middleware(['auth'])->group(function () {
     Route::post('/store' , [CodeController::class , 'store'])->name('store');
     Route::get('/groupes' , [CodeController::class , 'groupes'])->name('groupes');
     Route::post('/download/{group}' , [CodeController::class , 'download'])->name('download');
+    Route::post('/status/{group}' , [CodeController::class , 'status'])->name('status');
 });
 
 Route::prefix('jobs')->as('jobs.')->middleware(['auth'])->group(function () {

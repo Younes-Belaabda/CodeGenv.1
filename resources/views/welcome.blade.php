@@ -18,6 +18,7 @@
                 <span>Team : </span>
                 <a href="#">BL97</a>
             </p>
+            <a class="button primary" href="{{ route('dashboard') }}">@lang('master.dashboard')</a>
         </div>
         @guest
         <div class="callout">
@@ -49,7 +50,7 @@
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <div class="grid-container">
-                    <button class="button alert">@lang('auth.login')</button>
+                    <button class="button alert">@lang('auth.logout')</button>
                 </div>
             </form>
         </div>
