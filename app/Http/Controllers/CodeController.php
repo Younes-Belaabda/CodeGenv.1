@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Code;
-use \App\Classes\HashCode;
+use \App\Classes\Hashcode;
 use App\Models\Group;
 use Illuminate\Http\Request;
 use App\Jobs\GenerateHashCodes;
