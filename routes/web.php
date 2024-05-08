@@ -18,12 +18,11 @@ use App\Http\Controllers\JobsMonitorController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-});
-// })->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -34,13 +33,14 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-Route::prefix('codes')->as('codes.')->group(function () {
+Route::prefix('codes')->as('codes.')->middleware(['auth'])->group(function () {
     Route::get('/index/{group}' , [CodeController::class , 'index'])->name('index');
     Route::get('/create' , [CodeController::class , 'create'])->name('create');
     Route::post('/store' , [CodeController::class , 'store'])->name('store');
     Route::get('/groupes' , [CodeController::class , 'groupes'])->name('groupes');
     Route::post('/download/{group}' , [CodeController::class , 'download'])->name('download');
 });
-Route::prefix('jobs')->as('jobs.')->group(function () {
+
+Route::prefix('jobs')->as('jobs.')->middleware(['auth'])->group(function () {
     Route::get('/' , JobsMonitorController::class)->name('index');
 });

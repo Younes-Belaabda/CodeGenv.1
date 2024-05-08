@@ -19,10 +19,12 @@
                 <a href="#">BL97</a>
             </p>
         </div>
+        @guest
         <div class="callout">
             <h5>تسجيل الدخول</h5>
             <hr>
-            <form>
+            <form action="{{ route('login') }}" method="POST">
+                @csrf
                 <div class="grid-container">
                     <div class="grid-x grid-padding-x">
                         <div class="medium-12 cell">
@@ -40,6 +42,18 @@
                 </div>
             </form>
         </div>
+        @else
+        <div class="callout secondary">
+            <h5>تسجيل الخروج</h5>
+            <hr>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <div class="grid-container">
+                    <button class="button alert">@lang('auth.login')</button>
+                </div>
+            </form>
+        </div>
+        @endguest
     </div>
 </body>
 

@@ -17,10 +17,22 @@
             <aside>
                 <ul class="vertical menu">
                     <li>
+                        <a href="{{ route('welcome') }}">@lang('navigation.welcome')</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('dashboard') }}">@lang('navigation.dashboard')</a>
+                    </li>
+                    <li>
                         <a href="{{ route('codes.create') }}">@lang('navigation.generate_codes')</a>
                     </li>
                     <li>
                         <a href="{{ route('codes.groupes') }}">@lang('navigation.code_database')</a>
+                    </li>
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button class="button alert">الخروج</button>
+                        </form>
                     </li>
                 </ul>
             </aside>
@@ -32,16 +44,17 @@
             </main>
         </div>
     </div>
+
+    <script src="{{ asset('assets/js/JQuery.js') }}"></script>
+    <script src="{{ asset('assets/js/fondation.js') }}"></script>
+    <script src="{{ asset('assets/js/clipboard.js') }}"></script>
+    <script>
+        $(document).foundation();
+    </script>
+    <script>
+        new ClipboardJS('.copy');
+    </script>
 </body>
 
-<script src="{{ asset('assets/js/JQuery.js') }}"></script>
-<script src="{{ asset('assets/js/fondation.js') }}"></script>
-<script src="{{ asset('assets/js/clipboard.js') }}"></script>
-<script>
-    $(document).foundation();
-</script>
-<script>
-    new ClipboardJS('.copy');
-</script>
 
 </html>
