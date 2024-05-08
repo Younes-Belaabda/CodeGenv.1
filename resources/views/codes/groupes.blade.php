@@ -13,14 +13,14 @@
                     <div class="callout primary @if($group->status) alert @endif">
                         <p>{{ $group->name }}</p>
                         <div class="grid-x">
-                            @if(!$group->status)
+                            {{-- @if(!$group->status) --}}
                             <div class="cell large-auto">
                                 <form action="{{ route('codes.download' , ['group' => $group]) }}" method="post">
                                     @csrf
                                     <button class="button success">@lang('master.download')</button>
                                 </form>
                             </div>
-                            @endif
+                            {{-- @endif --}}
                             <div class="cell large-auto">
                                 <a class="button primary" href="{{ route('codes.index' , ['group' => $group]) }}">@lang('master.show')</a>
                             </div>
