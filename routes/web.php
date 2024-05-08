@@ -35,9 +35,11 @@ require __DIR__.'/auth.php';
 
 
 Route::prefix('codes')->as('codes.')->group(function () {
-    Route::get('/' , [CodeController::class , 'index'])->name('index');
+    Route::get('/index/{group}' , [CodeController::class , 'index'])->name('index');
     Route::get('/create' , [CodeController::class , 'create'])->name('create');
     Route::post('/store' , [CodeController::class , 'store'])->name('store');
+    Route::get('/groupes' , [CodeController::class , 'groupes'])->name('groupes');
+    Route::post('/download/{group}' , [CodeController::class , 'download'])->name('download');
 });
 Route::prefix('jobs')->as('jobs.')->group(function () {
     Route::get('/' , JobsMonitorController::class)->name('index');

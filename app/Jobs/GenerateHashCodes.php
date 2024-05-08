@@ -12,14 +12,14 @@ class GenerateHashCodes implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $length;
+    private $hashcode;
 
     /**
      * Create a new job instance.
      */
-    public function __construct($length)
+    public function __construct($hashcode)
     {
-        $this->length = $length;
+        $this->hashcode = $hashcode;
     }
 
     /**
@@ -30,11 +30,11 @@ class GenerateHashCodes implements ShouldQueue
         for ($i=0; $i < 1000; $i++) {
             try{
                 Code::create([
-                    'hash' => substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890') , 0 , $this->length),
+                    'hash' => $this->hashcode->random(),
                     'status' => false
                 ]);
             }catch(\Exception $ex){
-                info('Error Code Duplicated !');
+                info('DUP JOB');
             }
         }
     }

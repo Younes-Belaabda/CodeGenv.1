@@ -3,49 +3,85 @@
 namespace App\Http\Controllers;
 use App\Models\Code;
 use App\Classes\HashCode;
+use App\Models\Group;
 use Illuminate\Http\Request;
 use App\Jobs\GenerateHashCodes;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 
 class CodeController extends Controller
 {
-    public function index(Request $request){
-        $codes = Code::paginate(50);
+    public function index(Request $request , Group $group){
+        $codes = Code::where('group_id' , $group->id)->paginate(5);
         if($request->has('q'))
-            $codes = Code::where('hash' , 'like' , "%" . $request->get('q') ."%")->paginate(50);
-        return view('codes.index' , ['codes' => $codes]);
+            $codes = Code::where('group_id' , $group->id)
+            ->where('hash' , 'like' , "%" . $request->get('q') ."%")
+            ->paginate(10);
+        return view('codes.index' , ['codes' => $codes , 'group' => $group]);
     }
+
+    public function groupes(Request $request){
+        $groupes = Group::paginate(10);
+        if($request->has('q'))
+            $groupes = Group::where('name' , 'like' , "%" . $request->get('q') ."%")->paginate(50);
+        return view('codes.groupes' , ['groupes' => $groupes]);
+    }
+
     public function create(){
         return view('codes.create');
     }
+
     public function store(Request $request){
 
         $request->validate([
-            'length' => 'required'
+            'group' => 'required',
+            'smallcase' => 'required',
+            'uppercase' => 'required',
+            'numbers' => 'required',
         ]);
 
-        $length = $request->length;
+        $group_name = $request->group;
         $prefix = $request->prefix;
         $suffix = $request->suffix;
+        $smallcase_count = $request->smallcase;
+        $uppercase_count = $request->uppercase;
+        $number_count    = $request->numbers;
 
-        for ($i=0; $i < 1000; $i++) {
-            try{
-                Code::create([
-                    'hash' => $prefix . substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890') , 0 , $length) . $suffix,
-                    'status' => false
-                ]);
-            }catch(\Exception $ex){
-                info('Error Code Duplicated !');
+        $group = Group::create([
+            'name' => $group_name
+        ]);
+
+        $hashcode = new Hashcode($prefix ?? '' , $suffix ?? '' , $smallcase_count , $uppercase_count , $number_count);
+
+        if(env('JOB_ACTIVATED') == true){
+            GenerateHashCodes::dispatch($hashcode);
+        }else{
+            for ($i=0; $i < 1000; $i++) {
+                try{
+                    Code::create([
+                        'hash' => $hashcode->random(),
+                        'status' => false,
+                        'group_id' => $group->id
+                    ]);
+                }catch(\Exception $ex){
+                    info($ex);
+                }
             }
         }
 
-        // GenerateHashCodes::dispatch($length);
-
-        // dispatch(new GenerateHashCodes($length));
-        // Artisan::command('queue:work', function () {
-        //     info('Queue Work Command !');
-        // });
-
         return back();
+    }
+
+    public function download(Group $group){
+        $codes = $group->codes;
+        $text = '';
+        foreach($codes as $code){
+            $text .= $code->hash . "\n";
+        }
+
+        $filename = time() . '.txt';
+
+        Storage::put(time() . '.txt', $text);
+
+        return Storage::download($filename);
     }
 }

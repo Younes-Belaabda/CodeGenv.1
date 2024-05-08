@@ -1,43 +1,46 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}" @if(config('app.locale') == 'ar') dir="rtl" @endif>
+<html lang="{{ config('app.locale') }}" @if (config('app.locale') == 'ar') dir="rtl" @endif>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@lang('master.title')</title>
-    @vite(['resources/css/app.css' , 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('assets/css/fondation-grid.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/fondation-prototype.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/fondation.css') }}">
 </head>
 
 <body>
-    <div class="grid-container">
-        <div class="grid-x grid-padding-x">
-            <div class="medium-2 cell">
-                <aside>
-                    <ul>
-                        <li>
-                            <a href="{{ route('codes.create') }}">@lang('navigation.generate_codes')</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('codes.index') }}">@lang('navigation.code_database')</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('jobs.index') }}">@lang('navigation.jobs')</a>
-                        </li>
-                    </ul>
-                </aside>
-            </div>
-            <div class="medium-10 cell">
-                <main>
-                    {{ $slot }}
-                </main>
-            </div>
+    <div class="off-canvas-wrapper">
+        <div class="off-canvas position-right padding-1" id="offCanvas" data-off-canvas>
+            <aside>
+                <ul class="vertical menu">
+                    <li>
+                        <a href="{{ route('codes.create') }}">@lang('navigation.generate_codes')</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('codes.groupes') }}">@lang('navigation.code_database')</a>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+        <div class="off-canvas-content padding-2" data-off-canvas-content>
+            <button type="button" class="button" data-toggle="offCanvas">@lang('master.open-menu')</button>
+            <main>
+                {{ $slot }}
+            </main>
         </div>
     </div>
 </body>
 
-<script src="{{ asset('assets/clipboard.js') }}"></script>
-<script defer>
+<script src="{{ asset('assets/js/JQuery.js') }}"></script>
+<script src="{{ asset('assets/js/fondation.js') }}"></script>
+<script src="{{ asset('assets/js/clipboard.js') }}"></script>
+<script>
+    $(document).foundation();
+</script>
+<script>
     new ClipboardJS('.copy');
 </script>
 

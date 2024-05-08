@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('hash')->unique();
             $table->boolean('status');
+            $table->unsignedBigInteger('group_id');
+            $table->foreign('group_id')->references('id')->on('groups');
             $table->timestamps();
         });
     }

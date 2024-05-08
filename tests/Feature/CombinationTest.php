@@ -14,8 +14,8 @@ class CombinationTest extends TestCase
      */
     public function test_ab_range(): void
     {
-        $hashcode = new HashCode(2,'' , '' , ['a' , 'b']);
-        $hashcode->generate();
-        $this->assertEquals($hashcode->hashcodes , ['aa' , 'ab' , 'ba' , 'bb']);
+        $hashcode = new HashCode('' , '' , 2 , 6 , 2);
+        $hashcode_random = $hashcode->random();
+        $this->assertTrue(strlen($hashcode_random) == 10);
     }
 }
