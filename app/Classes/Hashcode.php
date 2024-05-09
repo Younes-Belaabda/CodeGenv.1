@@ -18,10 +18,12 @@
         private $uppercase_random_text;
         private $numbers_random_text;
 
-        public function __construct($prefix , $suffix /*, $length*/ , $smallcase_count , $uppercase_count , $number_count){
+        public function __construct(){
+        }
+
+        public function init($prefix , $suffix , $smallcase_count , $uppercase_count , $number_count){
             $this->prefix          = $prefix;
             $this->suffix          = $suffix;
-            // $this->length          = $length;
             $this->smallcase_count = $smallcase_count;
             $this->uppercase_count = $uppercase_count;
             $this->number_count    = $number_count;

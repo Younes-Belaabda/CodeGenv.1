@@ -30,7 +30,7 @@ class CodeController extends Controller
         return view('codes.create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request , Hashcode $hashcode){
 
         $request->validate([
             'group' => 'required|unique:groups,name',
@@ -52,7 +52,7 @@ class CodeController extends Controller
             'name' => $group_name
         ]);
 
-        $hashcode = new Hashcode($prefix ?? '' , $suffix ?? '' , $smallcase_count , $uppercase_count , $number_count);
+        $hashcode->init($prefix ?? '' , $suffix ?? '' , $smallcase_count , $uppercase_count , $number_count);
 
         if(env('JOB_ACTIVATED') == true){
             GenerateHashCodes::dispatch($hashcode);
