@@ -17,16 +17,18 @@
         private $smallcase_random_text;
         private $uppercase_random_text;
         private $numbers_random_text;
+        private $chars;
 
         public function __construct(){
         }
 
-        public function init($prefix , $suffix , $smallcase_count , $uppercase_count , $number_count){
+        public function init($prefix , $suffix , $smallcase_count , $uppercase_count , $number_count , $chars = []){
             $this->prefix          = $prefix;
             $this->suffix          = $suffix;
             $this->smallcase_count = $smallcase_count;
             $this->uppercase_count = $uppercase_count;
             $this->number_count    = $number_count;
+            $this->chars = $chars;
         }
 
         private function shuffle_smallcases(){
@@ -66,5 +68,15 @@
             // $to_shuffle = $shuffle_all . $shuffle_to_complete;
             // return str_shuffle($to_shuffle);
             return $this->prefix . str_shuffle($shuffle_all) . $this->suffix;
+        }
+
+        public function get(){
+            $code = $this->random();
+            if($this->chars){
+                foreach($this->chars as $char){
+                    $code[$char['number'] - 1] = $char['char'];
+                }
+            }
+            return $code;
         }
     }

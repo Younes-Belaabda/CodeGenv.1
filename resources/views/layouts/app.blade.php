@@ -54,6 +54,7 @@
     <script>
         new ClipboardJS('.copy');
     </script>
+    {{ $scripts ?? '' }}
 </body>
 
 

@@ -21,4 +21,8 @@
         'change-code-status' => 'تم الإستعمال',
         'welcome' => 'الرئيسية',
         'dashboard' => 'لوحة التحكم',
+        'hashcode_extra_char' => 'حرف إضافي',
+        'hashcode_char' => 'الحرف',
+        'hashcode_number' => 'المكان في الكلمة',
+        'add' => 'إضافة'
     ];

@@ -58,6 +58,13 @@
                         @enderror
                     </div>
                     <div class="medium-12 cell">
+                        <label>@lang('master.hashcode_extra_char')</label>
+                        <div id="repeaters">
+
+                        </div>
+                        <button class="button" id="btn-add-repeater" type="button">@lang('master.add')</button>
+                    </div>
+                    <div class="medium-12 cell">
                         <label>@lang('master.hashcode_codes_numbers')
                             <input type="text" name="codes_number" placeholder="@lang('master.hashcode_codes_numbers')">
                         </label>
@@ -70,4 +77,27 @@
             </div>
         </div>
     </form>
+    <x-slot:scripts>
+        <script>
+            $(function() {
+                var reapeter = `<div class="grid-x grid-padding-x">
+                            <div class="medium-4 cell">
+                                <input type="text" name="codes_chars[]" placeholder="@lang('master.hashcode_char')">
+                            </div>
+                            <div class="medium-4 cell">
+                                <input type="number" name="codes_numbers[]" placeholder="@lang('master.hashcode_number')">
+                            </div>
+                            <div class="medium-4 cell">
+                                <button onclick="drop(this)" class="btn-delete button alert" type="button">حذف</button>
+                            </div>
+                        </div>`;
+                $('#btn-add-repeater').click(function(){
+                    $('#repeaters').append(reapeter);
+                });
+            });
+            function drop(e){
+                e.parentElement.parentElement.remove();
+            }
+        </script>
+    </x-slot:scripts>
 </x-app-layout>
